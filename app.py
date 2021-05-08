@@ -1,8 +1,23 @@
 # sample-web-app/app.py
 from flask import Flask, request
+import csv
   
 app = Flask(__name__)
 messages = []
+fieldnames = ['author', 'text']
+
+with open('messages.csv') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for index, row in csv_reader:
+        if index > 1:
+            messages.append(row)
+
+def writeToFile():
+    with open('messages.csv', mode='w') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        for message in messages:
+            writer.writerow(message)
 
 def getMessagesAsString():
     all_messages = f'<h2>Messages ({len(messages)}):</h2>'
@@ -24,6 +39,7 @@ def send_message():
             'author': message_author,
             'text': message_body
         })
+        writeToFile()
         return f'Message received! Count: {len(messages)}'
     except:
         return 'Message failed...'
