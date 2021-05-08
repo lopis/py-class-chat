@@ -13,7 +13,7 @@ def loadMessagesFromFile():
             messages.append(row)
     return messages
 
-def writeToFile():
+def writeToFile(messages):
     with open('messages.csv', mode='w') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
@@ -52,7 +52,7 @@ def send_message():
             'author': message_author,
             'text': message_body
         })
-        writeToFile()
-        return f'Message received! Count: {len(messages) + 1}'
+        writeToFile(messages)
+        return f'Message received! Count: {len(messages)}'
     # except:
     #     return 'Message failed...'
