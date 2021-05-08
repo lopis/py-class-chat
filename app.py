@@ -30,6 +30,13 @@ def home_view():
     messages_as_string = getMessagesAsString()
     return f"<h1>Welcome to the class chat!</h1>{messages_as_string}"
 
+@app.route('/file') 
+def print_file():
+    with open('messages.csv') as csv_file:
+        text = csv_file.read()
+        return text
+
+
 @app.route('/', methods=['POST'])
 def send_message():
     try:
