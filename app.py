@@ -25,7 +25,7 @@ def getMessagesAsString():
     all_messages = f'<h2>Messages ({len(messages)}):</h2>'
     for message in messages:
         try:
-            all_messages += f'<p><strong>[{message['author']}]:</strong> {message['text']}</p>'
+            all_messages += f'<p><strong>[{message["author"]}]:</strong> {message["text"]}</p>'
         except:
             all_messages += f'~{message}'
     return all_messages
