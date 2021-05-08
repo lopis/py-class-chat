@@ -1,5 +1,5 @@
 # sample-web-app/app.py
-from flask import Flask 
+from flask import Flask, request
   
 app = Flask(__name__)
 messages = []
@@ -25,5 +25,5 @@ def send_message():
             text: message_body
         })
         return 'Message received!'
-    except:
-        return 'Message failed...'
+    except Exception as error:
+        return f'Message failed. {string(error)}'
