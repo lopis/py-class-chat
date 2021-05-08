@@ -6,11 +6,12 @@ app = Flask(__name__)
 messages = []
 fieldnames = ['author', 'text']
 
-with open('messages.csv') as csv_file:
-    csv_reader = csv.DictReader(csv_file)
-    next(csv_reader)
-    for row in csv_reader:
-        messages.append(row)
+def loadMessagesFromFile():
+    with open('messages.csv') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        next(csv_reader)
+        for row in csv_reader:
+            messages.append(row)
 
 def writeToFile():
     with open('messages.csv', mode='w') as csv_file:
@@ -20,9 +21,10 @@ def writeToFile():
             writer.writerow(message)
 
 def getMessagesAsString():
+    loadMessagesFromFile()
     all_messages = f'<h2>Messages ({len(messages)}):</h2>'
     for message in messages:
-        all_messages += f'<p><strong>[{message.name}]:</strong> {message.text}</p>'
+        all_messages += f'<p><strong>[{message.author}]:</strong> {message.text}</p>'
     return all_messages
   
 @app.route('/') 
@@ -46,6 +48,7 @@ def send_message():
             'author': message_author,
             'text': message_body
         })
+        loadMessagesFromFile()
         writeToFile()
         return f'Message received! Count: {len(messages)}'
     except:
