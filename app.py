@@ -3,7 +3,27 @@ from flask import Flask
   
 app = Flask(__name__)
 messages = []
+
+def getMessagesAsString():
+    all_messages = ''
+    for message in messages:
+        all_messages += f'<p><strong>[{message.name}]:</strong> {message.text}</p>'
+    return all_messages
   
-@app.route("/") 
+@app.route('/') 
 def home_view(): 
-        return "<h1>Welcome to My website!</h1>"
+    messages_as_string = getMessagesAsString()
+    return f"<h1>Welcome to the class chat!</h1>{messages_as_string}"
+
+@app.route('/', methods=['POST'])
+def send_message():
+    try:
+        message_body = request.form['message']
+        message_author = request.form['author']
+        messages.append({
+            author: message_author,
+            text: message_body
+        })
+        return 'Message received!'
+    except:
+        return 'Message failed...'
