@@ -26,4 +26,4 @@ def send_message():
         })
         return 'Message received!'
     except Exception as error:
-        return f'Message failed. {string(error)}'
+        return error
