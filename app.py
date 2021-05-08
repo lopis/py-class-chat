@@ -37,7 +37,7 @@ def home_view():
     return f"<h1>Welcome to the class chat!</h1>{messages_as_string}"
       
 @app.route('/get_messages') 
-def home_view(): 
+def json_view(): 
     messages = loadMessagesFromFile()
     messages_as_json = json.dumps(messages)
     return messages_as_json
