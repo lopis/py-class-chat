@@ -5,7 +5,7 @@ app = Flask(__name__)
 messages = []
 
 def getMessagesAsString():
-    all_messages = ''
+    all_messages = f'<h2>Messages ({len(messages)}):</h2>'
     for message in messages:
         all_messages += f'<p><strong>[{message.name}]:</strong> {message.text}</p>'
     return all_messages
@@ -24,6 +24,6 @@ def send_message():
             'author': message_author,
             'text': message_body
         })
-        return 'Message received!'
+        return f'Message received! Count: {len(messages)}'
     except:
         return 'Message failed...'
