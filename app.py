@@ -3,7 +3,6 @@ from flask import Flask, request
 import csv
   
 app = Flask(__name__)
-messages = []
 fieldnames = ['author', 'text']
 
 def loadMessagesFromFile():
@@ -12,6 +11,7 @@ def loadMessagesFromFile():
         csv_reader = csv.DictReader(csv_file, delimiter=',')
         for row in csv_reader:
             messages.append(row)
+    return messages
 
 def writeToFile():
     with open('messages.csv', mode='w') as csv_file:
@@ -21,7 +21,7 @@ def writeToFile():
             writer.writerow(message)
 
 def getMessagesAsString():
-    loadMessagesFromFile()
+    messages = loadMessagesFromFile()
     all_messages = f'<h2>Messages ({len(messages)}):</h2>'
     for message in messages:
         try:
@@ -51,8 +51,8 @@ def send_message():
             'author': message_author,
             'text': message_body
         })
-        loadMessagesFromFile()
         writeToFile()
+        messages = loadMessagesFromFile()
         return f'Message received! Count: {len(messages)}'
     except:
         return 'Message failed...'
