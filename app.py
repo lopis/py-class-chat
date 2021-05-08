@@ -47,12 +47,12 @@ def send_message():
     try:
         message_body = request.form['message']
         message_author = request.form['author']
+        messages = loadMessagesFromFile()
         messages.append({
             'author': message_author,
             'text': message_body
         })
         writeToFile()
-        messages = loadMessagesFromFile()
-        return f'Message received! Count: {len(messages)}'
+        return f'Message received! Count: {len(messages + 1)}'
     except:
         return 'Message failed...'
