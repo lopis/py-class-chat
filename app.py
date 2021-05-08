@@ -8,9 +8,9 @@ fieldnames = ['author', 'text']
 
 with open('messages.csv') as csv_file:
     csv_reader = csv.DictReader(csv_file)
-    for index, row in csv_reader:
+    for index in range(csv_reader):
         if index > 1:
-            messages.append(row)
+            messages.append(csv_reader(index))
 
 def writeToFile():
     with open('messages.csv', mode='w') as csv_file:
