@@ -1,7 +1,8 @@
 # sample-web-app/app.py
 from flask import Flask, request
 import csv
-  
+import json 
+
 app = Flask(__name__)
 fieldnames = ['author', 'text']
 
@@ -34,6 +35,12 @@ def getMessagesAsString():
 def home_view(): 
     messages_as_string = getMessagesAsString()
     return f"<h1>Welcome to the class chat!</h1>{messages_as_string}"
+      
+@app.route('/get_messages') 
+def home_view(): 
+    messages = loadMessagesFromFile()
+    messages_as_json = json.dumps(messages)
+    return messages_as_json
 
 @app.route('/file') 
 def print_file():
