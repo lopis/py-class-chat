@@ -21,9 +21,9 @@ def send_message():
         message_body = request.form['message']
         message_author = request.form['author']
         messages.append({
-            author: message_author,
-            text: message_body
+            'author': message_author,
+            'text': message_body
         })
         return 'Message received!'
-    except Exception as error:
-        return error
+    except:
+        return 'Message failed...'
