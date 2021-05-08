@@ -8,7 +8,7 @@ fieldnames = ['author', 'text']
 
 with open('messages.csv') as csv_file:
     csv_reader = csv.DictReader(csv_file)
-    next(csvreader)
+    next(csv_reader)
     for row in csv_reader:
         messages.append(row)
 
