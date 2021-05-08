@@ -8,8 +8,7 @@ fieldnames = ['author', 'text']
 
 def loadMessagesFromFile():
     with open('messages.csv') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        next(csv_reader)
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
         for row in csv_reader:
             messages.append(row)
 
