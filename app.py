@@ -25,7 +25,7 @@ def getMessagesAsString():
     all_messages = f'<h2>Messages ({len(messages)}):</h2>'
     for message in messages:
         try:
-            all_messages += f'<p><strong>[{message.author}]:</strong> {message.text}</p>'
+            all_messages += f'<p><strong>[{message['author']}]:</strong> {message['text']}</p>'
         except:
             all_messages += f'~{message}'
     return all_messages
@@ -44,7 +44,7 @@ def print_file():
 
 @app.route('/', methods=['POST'])
 def send_message():
-    try:
+    # try:
         message_body = request.form['message']
         message_author = request.form['author']
         messages = loadMessagesFromFile()
@@ -53,6 +53,6 @@ def send_message():
             'text': message_body
         })
         writeToFile()
-        return f'Message received! Count: {len(messages + 1)}'
-    except:
-        return 'Message failed...'
+        return f'Message received! Count: {len(messages) + 1}'
+    # except:
+    #     return 'Message failed...'
