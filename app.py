@@ -46,7 +46,17 @@ def print_file():
 def send_message():
     # try:
         message_body = request.form['message']
+        if len(message_body) > 140:
+            return 'Your message is too long'
+        elif len(message_body) < 1:
+            return 'Your message is too small'
+
         message_author = request.form['author']
+        if len(message_author) > 10:
+            return 'Your name is too long'
+        elif len(message_author) < 5:
+            return 'Your name is too short (min 5)'
+
         messages = loadMessagesFromFile()
         messages.append({
             'author': message_author,
